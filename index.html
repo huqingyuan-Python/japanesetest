@@ -9,21 +9,7 @@
   <script>
     tailwind.config = {
       theme: {
-        extend: {
-          colors: {
-            'blue-50': '#eff6ff',
-            'indigo-100': '#e0e7ff',
-            'blue-600': '#2563eb',
-            'blue-700': '#1d4ed8',
-            'green-100': '#dcfce7',
-            'green-600': '#16a34a',
-            'red-600': '#dc2626',
-            'gray-800': '#1f2937',
-            'gray-600': '#4b5563',
-            'gray-500': '#6b7280',
-            'gray-200': '#e5e7eb',
-          }
-        }
+        extend: {}
       }
     }
   </script>
@@ -34,88 +20,99 @@
   </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-  <div id="app" class="bg-white rounded-2xl shadow-xl p-8 max-w-2xl w-full">
-    <!-- 动态内容将通过 JS 渲染 -->
-  </div>
+<div id="app" class="bg-white rounded-2xl shadow-xl p-6 max-w-2xl w-full">
+  <!-- 动态内容将通过 JS 渲染 -->
+</div>
 
-  <script>
-    // =============== 数据 ===============
-    const questions = [
-      { id: 1, type: 'multiple', question: '「学校」的正确读音是？', questionJp: '「学校」の正しい読み方は？', options: ['がっこう', 'がっこう', 'がっこうう', 'かっこう'], correctAnswer: 'がっこう' },
-      { id: 2, type: 'multiple', question: '「朋友」的正确读音是？', questionJp: '「友達」の正しい読み方は？', options: ['ともだち', 'ともたち', 'ゆうだち', 'ゆうたち'], correctAnswer: 'ともだち' },
-      { id: 3, type: 'multiple', question: '「老师」的正确读音是？', questionJp: '「先生」の正しい読み方は？', options: ['せんせい', 'せんせい', 'せんせ', 'せんせいえ'], correctAnswer: 'せんせい' },
-      { id: 4, type: 'multiple', question: '「学习」的正确读音是？', questionJp: '「勉強」の正しい読み方は？', options: ['べんきょう', 'べんきょ', 'べんきょうう', 'へんきょう'], correctAnswer: 'べんきょう' },
-      { id: 5, type: 'multiple', question: '「非常喜欢」的正确读音是？', questionJp: '「大好き」の正しい読み方は？', options: ['だいすき', 'たいすき', 'だいすく', 'たいすく'], correctAnswer: 'だいすき' },
-      { id: 6, type: 'truefalse', question: '「食べる」读作「たべる」。', questionJp: '「食べる」は「たべる」と読みます。', correctAnswer: true },
-      { id: 7, type: 'truefalse', question: '「行く」读作「いく」。', questionJp: '「行く」は「いく」と読みます。', correctAnswer: true },
-      { id: 8, type: 'truefalse', question: '「看」读作「みる」。', questionJp: '「見る」は「みる」と読みます。', correctAnswer: true },
-      { id: 9, type: 'truefalse', question: '「写」读作「かく」。', questionJp: '「書く」は「かく」と読みます。', correctAnswer: true },
-      { id: 10, type: 'truefalse', question: '「说话」读作「はなす」。', questionJp: '「話す」は「はなす」と読みます。', correctAnswer: true },
-      { id: 11, type: 'multiple', question: '「日语」的正确读音是？', questionJp: '「日本語」の正しい読み方は？', options: ['にほんご', 'にほんご', 'にっぽんご', 'にほんこ'], correctAnswer: 'にほんご' },
-      { id: 12, type: 'multiple', question: '「家人」的正确读音是？', questionJp: '「家族」の正しい読み方は？', options: ['かぞく', 'かぞく', 'かぞくう', 'がぞく'], correctAnswer: 'かぞく' },
-      { id: 13, type: 'multiple', question: '「时间」的正确读音是？', questionJp: '「時間」の正しい読み方は？', options: ['じかん', 'じかん', 'じかんん', 'しけん'], correctAnswer: 'じかん' },
-      { id: 14, type: 'multiple', question: '「今天」的正确读音是？', questionJp: '「今日」の正しい読み方は？', options: ['きょう', 'きょう', 'きょ', 'きょうう'], correctAnswer: 'きょう' },
-      { id: 15, type: 'multiple', question: '「明天」的正确读音是？', questionJp: '「明日」の正しい読み方は？', options: ['あした', 'あした', 'あす', 'みょうにち'], correctAnswer: 'あした' },
-      { id: 16, type: 'truefalse', question: '「水」读作「みず」。', questionJp: '「水」は「みず」と読みます。', correctAnswer: true },
-      { id: 17, type: 'truefalse', question: '「火」读作「ひ」。', questionJp: '「火」は「ひ」と読みます。', correctAnswer: true },
-      { id: 18, type: 'truefalse', question: '「山」读作「やま」。', questionJp: '「山」は「やま」と読みます。', correctAnswer: true },
-      { id: 19, type: 'truefalse', question: '「河」读作「かわ」。', questionJp: '「川」は「かわ」と読みます。', correctAnswer: true },
-      { id: 20, type: 'truefalse', question: '「花」读作「はな」。', questionJp: '「花」は「はな」と読みます。', correctAnswer: true },
-      { id: 21, type: 'multiple', question: '「电车」的正确读音是？', questionJp: '「電車」の正しい読み方は？', options: ['でんしゃ', 'でんしゃ', 'でんしゃあ', 'てんしゃ'], correctAnswer: 'でんしゃ' },
-      { id: 22, type: 'multiple', question: '「车站」的正确读音是？', questionJp: '「駅」の正しい読み方は？', options: ['えき', 'えき', 'えきい', 'えっき'], correctAnswer: 'えき' },
-      { id: 23, type: 'multiple', question: '「电话」的正确读音是？', questionJp: '「電話」の正しい読み方は？', options: ['でんわ', 'でんわ', 'でんわあ', 'てんわ'], correctAnswer: 'でんわ' },
-      { id: 24, type: 'multiple', question: '「报纸」的正确读音是？', questionJp: '「新聞」の正しい読み方は？', options: ['しんぶん', 'しんぶん', 'しんぷん', 'しんぶんん'], correctAnswer: 'しんぶん' },
-      { id: 25, type: 'multiple', question: '「杂志」的正确读音是？', questionJp: '「雑誌」の正しい読み方は？', options: ['ざっし', 'ざっし', 'ざっしい', 'さっし'], correctAnswer: 'ざっし' },
-      { id: 26, type: 'truefalse', question: '「书」读作「ほん」。', questionJp: '「本」は「ほん」と読みます。', correctAnswer: true },
-      { id: 27, type: 'truefalse', question: '「铅笔」读作「えんぴつ」。', questionJp: '「鉛筆」は「えんぴつ」と読みます。', correctAnswer: true },
-      { id: 28, type: 'truefalse', question: '「桌子」读作「つくえ」。', questionJp: '「机」は「つくえ」と読みます。', correctAnswer: true },
-      { id: 29, type: 'truefalse', question: '「椅子」读作「いす」。', questionJp: '「椅子」は「いす」と読みます。', correctAnswer: true },
-      { id: 30, type: 'truefalse', question: '「窗户」读作「まど」。', questionJp: '「窓」は「まど」と読みます。', correctAnswer: true },
-      { id: 31, type: 'multiple', question: '「老师」的正确读音是？', questionJp: '「先生」の正しい読み方は？', options: ['せんせい', 'せんせい', 'せんせ', 'せんせいえ'], correctAnswer: 'せんせい' },
-      { id: 32, type: 'multiple', question: '「学生」的正确读音是？', questionJp: '「学生」の正しい読み方は？', options: ['がくせい', 'がくせい', 'がくせ', 'がくせいえ'], correctAnswer: 'がくせい' },
-      { id: 33, type: 'multiple', question: '「老师」的正确读音是？', questionJp: '「先生」の正しい読み方は？', options: ['せんせい', 'せんせい', 'せんせ', 'せんせいえ'], correctAnswer: 'せんせい' },
-      { id: 34, type: 'multiple', question: '「朋友」的正确读音是？', questionJp: '「友達」の正しい読み方は？', options: ['ともだち', 'ともたち', 'ゆうだち', 'ゆうたち'], correctAnswer: 'ともだち' },
-      { id: 35, type: 'multiple', question: '「家人」的正确读音是？', questionJp: '「家族」の正しい読み方は？', options: ['かぞく', 'かぞく', 'かぞくう', 'がぞく'], correctAnswer: 'かぞく' },
-      { id: 36, type: 'truefalse', question: '「狗」读作「いぬ」。', questionJp: '「犬」は「いぬ」と読みます。', correctAnswer: true },
-      { id: 37, type: 'truefalse', question: '「猫」读作「ねこ」。', questionJp: '「猫」は「ねこ」と読みます。', correctAnswer: true },
-      { id: 38, type: 'truefalse', question: '「鸟」读作「とり」。', questionJp: '「鳥」は「とり」と読みます。', correctAnswer: true },
-      { id: 39, type: 'truefalse', question: '「鱼」读作「さかな」。', questionJp: '「魚」は「さかな」と読みます。', correctAnswer: true },
-      { id: 40, type: 'truefalse', question: '「花」读作「はな」。', questionJp: '「花」は「はな」と読みます。', correctAnswer: true }
-    ];
+<script>
+  // =============== 去重后的题目（30题） ===============
+  const questions = [
+    { id: 1, type: 'multiple', question: '「学校」的正确读音是？', questionJp: '「学校」の正しい読み方は？', options: ['こうがっこ', 'がっこう', 'がっこうう', 'かっこう'], correctAnswer: 'がっこう' },
+    { id: 2, type: 'multiple', question: '「朋友」的正确读音是？', questionJp: '「友達」の正しい読み方は？', options: ['ともだち', 'ともたち', 'ゆうだち', 'ゆうたち'], correctAnswer: 'ともだち' },
+    { id: 3, type: 'multiple', question: '「老师」的正确读音是？', questionJp: '「先生」の正しい読み方は？', options: ['んせせい', 'せんせい', 'せんせ', 'せんせいえ'], correctAnswer: 'せんせい' },
+    { id: 4, type: 'multiple', question: '「学习」的正确读音是？', questionJp: '「勉強」の正しい読み方は？', options: ['べょんきう', 'べんきょ', 'べんきょうう', 'へんきょう'], correctAnswer: 'べんきょう' },
+    { id: 5, type: 'multiple', question: '「非常喜欢」的正确读音是？', questionJp: '「大好き」の正しい読み方は？', options: ['だいすき', 'たいすき', 'だいすく', 'たいすく'], correctAnswer: 'だいすき' },
+    { id: 6, type: 'truefalse', question: '「食べる」读作「たべる」。', questionJp: '「食べる」は「たべる」と読みます。', correctAnswer: true },
+    { id: 7, type: 'truefalse', question: '「行く」读作「いく」。', questionJp: '「行く」は「いんく」と読みます。', correctAnswer: false },
+    { id: 8, type: 'truefalse', question: '「看」读作「みる」。', questionJp: '「見る」は「みる」と読みます。', correctAnswer: true },
+    { id: 9, type: 'truefalse', question: '「写」读作「かく」。', questionJp: '「書く」は「かべ」と読みます。', correctAnswer: false },
+    { id: 10, type: 'truefalse', question: '「说话」读作「はなす」。', questionJp: '「話す」は「はなす」と読みます。', correctAnswer: true },
+    { id: 11, type: 'multiple', question: '「日语」的正确读音是？', questionJp: '「日本語」の正しい読み方は？', options: ['ほんにご', 'にほんご', 'にっぽんご', 'にほんこ'], correctAnswer: 'にほんご' },
+    { id: 12, type: 'multiple', question: '「家人」的正确读音是？', questionJp: '「家族」の正しい読み方は？', options: ['かぞく', 'かく', 'かぞくう', 'がぞく'], correctAnswer: 'かぞく' },
+    { id: 13, type: 'multiple', question: '「时间」的正确读音是？', questionJp: '「時間」の正しい読み方は？', options: ['じかん', 'かんじ', 'じかんん', 'しけん'], correctAnswer: 'じかん' },
+    { id: 14, type: 'multiple', question: '「今天」的正确读音是？', questionJp: '「今日」の正しい読み方は？', options: ['ょうし', 'きょう', 'きょ', 'きょうう'], correctAnswer: 'きょう' },
+    { id: 15, type: 'multiple', question: '「明天」的正确读音是？', questionJp: '「明日」の正しい読み方は？', options: ['したあ', 'あした', 'あす', 'みょうにち'], correctAnswer: 'あした' },
+    { id: 16, type: 'truefalse', question: '「水」读作「みず」。', questionJp: '「水」は「みず」と読みます。', correctAnswer: true },
+    { id: 17, type: 'truefalse', question: '「火」读作「ひ」。', questionJp: '「火」は「ひ」と読みます。', correctAnswer: true },
+    { id: 18, type: 'truefalse', question: '「山」读作「やま」。', questionJp: '「山」は「やんき」と読みます。', correctAnswer: false },
+    { id: 19, type: 'truefalse', question: '「河」读作「かわ」。', questionJp: '「川」は「かわ」と読みます。', correctAnswer: true },
+    { id: 20, type: 'truefalse', question: '「花」读作「はな」。', questionJp: '「花」は「はんせ」と読みます。', correctAnswer: false },
+    { id: 21, type: 'multiple', question: '「电车」的正确读音是？', questionJp: '「電車」の正しい読み方は？', options: ['しでんゃ', 'でんしゃ', 'でんしゃあ', 'てんしゃ'], correctAnswer: 'でんしゃ' },
+    { id: 22, type: 'multiple', question: '「车站」的正确读音是？', questionJp: '「駅」の正しい読み方は？', options: ['えき', 'えんき', 'えきい', 'えっき'], correctAnswer: 'えき' },
+    { id: 23, type: 'multiple', question: '「电话」的正确读音是？', questionJp: '「電話」の正しい読み方は？', options: ['でんわ', 'んわ', 'でんわあ', 'てんわ'], correctAnswer: 'でんわ' },
+    { id: 24, type: 'multiple', question: '「报纸」的正确读音是？', questionJp: '「新聞」の正しい読み方は？', options: ['しんぶん', 'しぶん', 'しんぷん', 'しんぶんん'], correctAnswer: 'しんぶん' },
+    { id: 25, type: 'multiple', question: '「杂志」的正确读音是？', questionJp: '「雑誌」の正しい読み方は？', options: ['ざし', 'ざっし', 'ざっしい', 'さっし'], correctAnswer: 'ざっし' },
+    { id: 26, type: 'truefalse', question: '「书」读作「ほん」。', questionJp: '「本」は「ほん」と読みます。', correctAnswer: true },
+    { id: 27, type: 'truefalse', question: '「铅笔」读作「えんぴつ」。', questionJp: '「鉛筆」は「えんぴつ」と読みます。', correctAnswer: true },
+    { id: 28, type: 'truefalse', question: '「桌子」读作「つくえ」。', questionJp: '「机」は「つくえ」と読みます。', correctAnswer: true },
+    { id: 29, type: 'truefalse', question: '「椅子」读作「いす」。', questionJp: '「椅子」は「いす」と読みます。', correctAnswer: true },
+    { id: 30, type: 'truefalse', question: '「窗户」读作「まど」。', questionJp: '「窓」は「しい」と読みます。', correctAnswer: false }
+  ];
 
-    // =============== 状态 ===============
-    let currentQuestion = 0;
-    const answers = {};
-    let score = 0;
+  // =============== 角色映射 ===============
+  const characterMap = {
+    '1岁以下': { cn: '野原ひろし（或 ひまわり）', jp: '野原ひろし / ひまわり', img: '1.jpg' },
+    '2岁': { cn: '野原新之助', jp: '野原しんのすけ', img: '2.jpg' },
+    '3岁': { cn: '野原新之助', jp: '野原しんのすけ', img: '3.jpg' },
+    '4岁': { cn: '埼玉', jp: 'サイタマ', img: '4.jpg' },
+    '5岁': { cn: '蒙奇·D·路飞', jp: 'モンキー・D・ルフィ', img: '5.jpg' },
+    '6岁以上': { cn: '夏目贵志', jp: '夏目貴志', img: '6.jpg' }
+  };
 
-    // =============== 工具函数 ===============
-    function getJapaneseAgeLevel(score) {
-      if (score >= 35) return '6岁以上';
-      if (score >= 30) return '5岁';
-      if (score >= 25) return '4岁';
-      if (score >= 20) return '3岁';
-      if (score >= 15) return '2岁';
-      return '1岁以下';
-    }
+  // =============== 状态 ===============
+  let currentQuestion = 0;
+  const answers = {};
+  let score = 0;
 
-    function getJapaneseAgeLevelJp(score) {
-      if (score >= 35) return '6歳以上';
-      if (score >= 30) return '5歳';
-      if (score >= 25) return '4歳';
-      if (score >= 20) return '3歳';
-      if (score >= 15) return '2歳';
-      return '1歳以下';
-    }
+  // =============== 工具函数 ===============
+  function getJapaneseAgeLevel(score) {
+    if (score >= 26) return '6岁以上';
+    if (score >= 21) return '5岁';
+    if (score >= 16) return '4岁';
+    if (score >= 11) return '3岁';
+    if (score >= 6) return '2岁';
+    return '1岁以下';
+  }
 
-    function render() {
-      const app = document.getElementById('app');
-      const currentQ = questions[currentQuestion];
-      const progress = ((currentQuestion + 1) / questions.length) * 100;
+  function getJapaneseAgeLevelJp(score) {
+    if (score >= 26) return '6歳以上';
+    if (score >= 21) return '5歳';
+    if (score >= 16) return '4歳';
+    if (score >= 11) return '3歳';
+    if (score >= 6) return '2歳';
+    return '1歳以下';
+  }
 
-      if (currentQuestion >= questions.length) {
-        // 显示结果
-        app.innerHTML = `
-          <div class="text-center mb-8">
+  function render() {
+    const app = document.getElementById('app');
+    const currentQ = questions[currentQuestion];
+    const progress = ((currentQuestion + 1) / questions.length) * 100;
+
+    if (currentQuestion >= questions.length) {
+      // 计算分数
+      score = 0;
+      for (let i = 0; i < questions.length; i++) {
+        if (answers[i] === questions[i].correctAnswer) {
+          score++;
+        }
+      }
+
+      const levelCn = getJapaneseAgeLevel(score);
+      const levelJp = getJapaneseAgeLevelJp(score);
+      const char = characterMap[levelCn];
+
+      app.innerHTML = `
+          <div class="text-center mb-6">
             <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <span class="text-3xl">🎯</span>
             </div>
@@ -127,15 +124,19 @@
               您的日语水平<br>
               <span class="text-sm text-gray-500">あなたの日本語レベル</span>
             </p>
-            <div class="bg-blue-50 rounded-xl p-6 mb-6">
-              <p class="text-3xl font-bold text-blue-600 mb-2">
-                ${getJapaneseAgeLevel(score)}<br>
-                <span class="text-lg text-gray-600">${getJapaneseAgeLevelJp(score)}</span>
+            <div class="bg-blue-50 rounded-xl p-5 mb-6">
+              <p class="text-3xl font-bold text-blue-600 mb-1">${levelCn}</p>
+              <p class="text-lg text-gray-600 mb-4">${levelJp}</p>
+              <p class="text-lg text-gray-700 mb-4">
+                得分: ${score}/${questions.length}<br>
+                <span class="text-sm text-gray-500">得点: ${score}/${questions.length}</span>
               </p>
-              <p class="text-lg text-gray-700">
-                得分: ${score}/40<br>
-                <span class="text-sm text-gray-500">得点: ${score}/40</span>
-              </p>
+              <div class="mb-4">
+                <img src="file/${char.img}" alt="${char.cn}" class="mx-auto rounded-lg shadow-md max-w-[120px] max-h-[120px] object-contain" />
+              </div>
+              <p class="font-semibold text-gray-800">${char.cn}</p>
+              <p class="text-sm text-gray-600">${char.jp}</p>
+              <p class="mt-3 text-gray-700">您的日语水平和他相当！</p>
             </div>
           </div>
           <button onclick="resetTest()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl transition duration-200 flex items-center justify-center">
@@ -144,13 +145,13 @@
             <span class="text-sm">もう一度テストする</span>
           </button>
         `;
-        return;
-      }
+      return;
+    }
 
-      // 渲染题目
-      let optionsHtml = '';
-      if (currentQ.type === 'multiple') {
-        optionsHtml = currentQ.options.map((opt, idx) => `
+    // 渲染题目
+    let optionsHtml = '';
+    if (currentQ.type === 'multiple') {
+      optionsHtml = currentQ.options.map((opt, idx) => `
           <button
             onclick="selectOption('${opt}')"
             class="w-full text-left p-4 border-2 ${answers[currentQuestion] === opt ? 'border-blue-500 bg-blue-50' : 'border-gray-200'} rounded-xl hover:border-blue-300 hover:bg-blue-50 transition duration-200"
@@ -158,11 +159,11 @@
             <span class="text-lg">${opt}</span>
           </button>
         `).join('');
-        optionsHtml += `
+      optionsHtml += `
           <div class="mt-6 text-right">
             <button
               onclick="nextQuestion()"
-              ${answers[currentQuestion] === undefined ? 'disabled class="bg-gray-300"' : 'class="bg-blue-600 hover:bg-blue-700"'}
+              ${answers[currentQuestion] === undefined ? 'disabled class="bg-gray-300 cursor-not-allowed"' : 'class="bg-blue-600 hover:bg-blue-700"'}
               class="text-white font-semibold py-3 px-6 rounded-xl transition duration-200 flex items-center"
             >
               下一步<br>
@@ -171,8 +172,8 @@
             </button>
           </div>
         `;
-      } else {
-        optionsHtml = `
+    } else {
+      optionsHtml = `
           <div class="flex space-x-4">
             <button
               onclick="handleTrueFalse(true)"
@@ -196,9 +197,9 @@
             </button>
           </div>
         `;
-      }
+    }
 
-      app.innerHTML = `
+    app.innerHTML = `
         <div class="mb-6">
           <div class="flex justify-between text-sm text-gray-600 mb-2">
             <span>
@@ -219,53 +220,36 @@
           ${optionsHtml}
         </div>
       `;
-    }
+  }
 
-    // =============== 事件处理 ===============
-    function selectOption(option) {
-      answers[currentQuestion] = option;
-      render();
-    }
-
-    function nextQuestion() {
-      if (answers[currentQuestion] !== undefined) {
-        currentQuestion++;
-        if (currentQuestion >= questions.length) {
-          // 计算分数
-          score = 0;
-          for (let i = 0; i < questions.length; i++) {
-            if (answers[i] === questions[i].correctAnswer) {
-              score++;
-            }
-          }
-        }
-        render();
-      }
-    }
-
-    function handleTrueFalse(answer) {
-      answers[currentQuestion] = answer;
-      currentQuestion++;
-      if (currentQuestion >= questions.length) {
-        score = 0;
-        for (let i = 0; i < questions.length; i++) {
-          if (answers[i] === questions[i].correctAnswer) {
-            score++;
-          }
-        }
-      }
-      render();
-    }
-
-    function resetTest() {
-      currentQuestion = 0;
-      Object.keys(answers).forEach(key => delete answers[key]);
-      score = 0;
-      render();
-    }
-
-    // =============== 启动 ===============
+  // =============== 事件处理 ===============
+  function selectOption(option) {
+    answers[currentQuestion] = option;
     render();
-  </script>
+  }
+
+  function nextQuestion() {
+    if (answers[currentQuestion] !== undefined) {
+      currentQuestion++;
+      render();
+    }
+  }
+
+  function handleTrueFalse(answer) {
+    answers[currentQuestion] = answer;
+    currentQuestion++;
+    render();
+  }
+
+  function resetTest() {
+    currentQuestion = 0;
+    Object.keys(answers).forEach(key => delete answers[key]);
+    score = 0;
+    render();
+  }
+
+  // =============== 启动 ===============
+  render();
+</script>
 </body>
 </html>
